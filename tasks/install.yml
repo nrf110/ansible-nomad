@@ -45,3 +45,7 @@
   template:
     src: nomad.sh.j2
     dest: /etc/profile.d/nomad.sh
+
+- name: Install Nomad Autocomplete
+  shell: "{{ nomad_home }}/bin/nomad -autocomplete-install"
+  become_user: "{{ nomad_user }}"
