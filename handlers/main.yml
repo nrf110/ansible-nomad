@@ -1,0 +1,9 @@
+---
+
+- name: reload systemd
+  become: True
+  command: systemctl daemon-reload
+
+- name: restart nomad
+  action: service name=nomad state=restarted enabled=yes
+  when: nomad_restart_on_change|default(False) and nomad_started|changed

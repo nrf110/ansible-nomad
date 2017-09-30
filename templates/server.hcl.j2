@@ -1,0 +1,69 @@
+server {
+  enabled = {{ nomad_is_server|ternary('true','false') }}
+{% if nomad_is_server %}
+  bootstrap_expect = {{ nomad_server_bootstrap_expect|default(3) }}
+{% if nomad_server_data_dir is defined %}
+  data_dir = "{{ nomad_server_data_dir }}"
+{% endif %}
+{% if nomad_server_enabled_schedulers is defined %}
+  enabled_schedulers = [
+{% for scheduler in nomad_server_enabled_schedulers %}
+    "{{ scheduler }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+  ]
+{% endif %}
+{% if nomad_server_encrypt is defined %}
+  encrypt = "{{ nomad_server_encrypt }}"
+{% endif %}
+{% if nomad_server_node_gc_threshold is defined %}
+  node_gc_threshold = "{{ nomad_server_node_gc_threshold }}"
+{% endif %}
+{% if nomad_server_job_gc_threshold is defined %}
+  job_gc_threshold = "{{ nomad_server_job_gc_threshold }}"
+{% endif %}
+{% if nomad_server_eval_gc_threshold is defined %}
+  eval_gc_threshold = "{{ nomad_server_eval_gc_threshold }}"
+{% endif %}
+{% if nomad_server_deployment_gc_threshold is defined %}
+  deployment_gc_threshold = "{{ nomad_server_deployment_gc_threshold }}"
+{% endif %}
+{% if nomad_server_heartbeat_grace is defined %}
+  heartbeat_grace = "{{ nomad_server_heartbeat_grace }}"
+{% endif %}
+{% if nomad_server_min_heartbeat_ttl is defined %}
+  min_heartbeat_ttl = "{{ nomad_server_min_heartbeat_ttl }}"
+{% endif %}
+{% if nomad_server_max_heartbeats_per_second is defined %}
+  max_heartbeats_per_second = {{ nomad_server_max_heartbeats_per_second }}
+{% endif %}
+{% if nomad_server_num_schedulers is defined %}
+  num_schedulers = {{ nomad_server_num_schedulers }}
+{% endif %}
+{% if nomad_server_protocol_version is defined %}
+  protocol_version = {{ nomad_server_protocol_version }}
+{% endif %}
+{% if nomad_server_rejoin_after_leave is defined %}
+  rejoin_after_leave = {{ nomad_server_rejoin_after_leave|ternary('true','false') }}
+{% endif %}
+{% if nomad_server_retry_interval is defined %}
+  retry_interval = "{{ nomad_server_retry_interval }}"
+{% endif %}
+{% if nomad_server_retry_max is defined %}
+  retry_max = {{ nomad_server_retry_max }}
+{% endif %}
+{% if nomad_server_retry_join %}
+  retry_join = [
+{% for server in nomad_servers %}
+  "{{ server }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+  ]
+{% endif %}
+{% if nomad_server_start_join %}
+  start_join = [
+{% for server in nomad_servers %}
+    "{{ server }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+  ]
+{% endif %}
+{% endif %}
+}

@@ -1,0 +1,21 @@
+tls {
+{% if nomad_tls_http is defined %}
+  http = {{ nomad_tls_http|ternary('true','false') }}
+{% endif %}
+{% if nomad_tls_rpce is defined %}
+  rpc = {{ nomad_tls_rpc|ternary('true','false') }}
+{% endif %}
+
+{% if nomad_tls_ca_file is defined %}
+  ca_file = "{{ nomad_tls_ca_file }}"
+{% endif %}
+{% if nomad_tls_key_file is defined %}
+  key_file = "{{ nomad_tls_key_file }}"
+{% endif %}
+{% if nomad_tls_verify_https_client is defined %}
+  verify_https_client = {{ nomad_tls_verify_http_client|ternary('true','false') }}
+{% endif %}
+{% if nomad_tls_verify_server_hostname is defined %}
+  verify_server_hostname = {{ nomad_tls_verify_server_hostname|ternary('true','false') }}
+{% endif %}
+}

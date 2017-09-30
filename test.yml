@@ -1,0 +1,38 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks: []
+
+- hosts: consul_servers
+  gather_facts: no
+  vars:
+    consul_bootstrap_expect: 3
+    consul_server_group_name: consul_servers
+    consul_network_iface: enp0s8
+    consul_node_name: "{{ inventory_hostname|to_uuid }}"
+  roles:
+    - ansible-consul
+
+- hosts: consul_clients
+  gather_facts: no
+  vars:
+    consul_server_group_name: consul_servers
+    consul_network_iface: enp0s8
+    consul_node_name: "{{ inventory_hostname|to_uuid }}"
+  roles:
+    - ansible-consul
+
+- hosts: nomad_servers
+  gather_facts: no
+  serial: 1
+  vars:
+    nomad_network_iface: enp0s8
+  roles:
+    - ansible-nomad
+
+- hosts: nomad_clients
+  gather_facts: no
+  vars:
+    nomad_network_iface: enp0s8
+  roles:
+    - ansible-nomad

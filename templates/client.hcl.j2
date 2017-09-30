@@ -1,0 +1,86 @@
+client {
+  enabled = {{ nomad_is_client|ternary('true','false') }}
+{% if nomad_is_client %}
+{% if nomad_client_use_consul %}
+  servers = [
+{% for server in nomad_servers %}
+  "{{ server }}{% if not loop.last %}",{% endif %}
+
+{% endfor %}
+  ]
+{% endif %}
+{% if nomad_client_alloc_dir is defined %}
+  alloc_dir = "{{ nomad_client_alloc_dir }}"
+{% endif %}
+{% if nomad_client_chroot_env is defined %}
+  chroot_env {
+{% for key, value in nomad_client_chroot_env.items() %}
+    "{{ key }}" = "{{ value }}"
+{% endfor %}
+  }
+{% endif %}
+{% if nomad_client_network_interface is defined %}
+  network_interface = "{{ nomad_client_network_interface }}"
+{% endif %}
+{% if nomad_client_meta is defined %}
+  meta {
+{% for key, value in nomad_client_meta.items() %}
+      {{ key }} = "{{ value }}"
+{% endfor %}
+  }
+{% endif %}
+{% if nomad_client_network_speed is defined %}
+  network_speed = "{{ nomad_client_network_speed }}"
+{% endif %}
+{% if nomad_client_cpu_total_compute is defined %}
+  cpu_total_compute = "{{ nomad_client_cpu_total_compute }}"
+{% endif %}
+{% if nomad_client_node_class is defined %}
+  node_class = "{{ nomad_client_node_class }}"
+{% endif %}
+{% if nomad_client_options is defined %}
+  options {
+{% for key, value in nomad_client_options.items() %}
+    "{{ key }}" = "{{ value }}"
+{% endfor %}
+  }
+{% endif %}
+{% if nomad_client_reserved is defined %}
+  reserved {
+{% if nomad_client_reserved.cpu is defined %}
+    cpu = {{ nomad_client_reserved.cpu }}
+{% endif %}
+{% if nomad_client_reserved.memory is defined %}
+    memory = {{ nomad_client_reserved.memory }}
+{% endif %}
+{% if nomad_client_reserved.disk is defined %}
+    disk = {{ nomad_client_reserved.disk }}
+{% endif %}
+{% if nomad_client_reserved.ports is defined %}
+    reserved_ports = "{{ nomad_client_reserved.ports }}"
+{% endif %}
+  }
+{% endif %}
+{% if nomad_client_state_dir is defined %}
+  state_dir = "{{ nomad_client_state_dir }}"
+{% endif %}
+{% if nomad_client_no_host_uid is defined %}
+  no_host_uid = {{ nomad_client_no_host_uid|ternary('true','false') }}
+{% endif %}
+{% if nomad_client_gc_interval is defined %}
+  gc_interval = "{{ nomad_client_gc_interval }}"
+{% endif %}
+{% if nomad_client_gc_disk_usage_threshold is defined %}
+  gc_disk_usage_threshold = {{ nomad_client_gc_disk_usage_threshold }}
+{% endif %}
+{% if nomad_client_gc_inode_usage_threshold is defined %}
+  gc_inode_usage_threshold = {{ nomad_client_usage_threshold }}
+{% endif %}
+{% if nomad_client_gc_max_allocs is defined %}
+  gc_max_allocs = {{ nomad_client_gc_max_allocs }}
+{% endif %}
+{% if nomad_client_gc_parallel_destroys is defined %}
+  gc_parallel_destroys = {{ nomad_client_gc_parallel_destroys }}
+{% endif %}
+{% endif %}
+}

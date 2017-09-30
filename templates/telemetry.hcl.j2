@@ -1,0 +1,69 @@
+telemetry {
+{% if nomad_telemetry_disable_hostname is defined %}
+  disable_hostname = {{ nomad_telemetry_disable_hostname|ternary('true','false') }}
+{% endif %}
+{% if nomad_telemetry_collection_interval is defined %}
+  collection_interval = "{{ nomad_telemetry_collection_interval }}"
+{% endif %}
+{% if nomad_telemetry_use_node_name is defined %}
+  use_node_name = {{ nomad_telemetry_use_node_name|ternary('true','false') }}
+{% endif %}
+{% if nomad_telemetry_publish_allocation_metrics is defined %}
+  publish_allocation_metrics = {{ nomad_telemetry_publish_allocation_metrics|ternary('true','false') }}
+{% endif %}
+{% if nomad_telemetry_publish_node_metrics is defined %}
+  publish_node_metrics = {{ nomad_telemetry_publish_node_metrics|ternary('true','false') }}
+{% endif %}
+
+{% if nomad_telemetry_statsite_address is defined %}
+  statsite_address = "{{ nomad_telemetry_statsite_address }}"
+{% endif %}
+
+{% if nomad_telemetry_statsd_address is defined %}
+  statsd_address = "{{ nomad_telemetry_statsd_address }}"
+{% endif %}
+
+{% if nomad_telemetry_datadog_address is defined %}
+  datadog_address = "{{ nomad_telemetry_datadog_address }}"
+{% endif %}
+
+{% if nomad_telemetry_circonus_api_token is defined %}
+  circonus_api_token = "{{ nomad_telemetry_circonus_api_token }}"
+{% endif %}
+{% if nomad_telemetry_circonus_api_app is defined %}
+  circonus_api_app = "{{ nomad_telemetry_circonus_api_app }}"
+{% endif %}
+{% if nomad_telemetry_circonus_api_url is defined %}
+  circonus_api_url = "{{ nomad_telemetry_circonus_api_url }}"
+{% endif %}
+{% if nomad_telemetry_circonus_submission_interval is defined %}
+  circonus_submission_interval = "{{ nomad_telemetry_circonus_submission_interval }}"
+{% endif %}
+{% if nomad_telemetry_circonus_submission_url is defined %}
+  circonus_submission_url = "{{ nomad_telemetry_circonus_submission_url }}"
+{% endif %}
+{% if nomad_telemetry_circonus_check_id is defined %}
+  circonus_check_id = "{{ nomad_telemetry_circonus_check_id }}"
+{% endif %}
+{% if nomad_telemetry_circonus_force_metric_activation is defined %}
+  circonus_force_metric_activation = {{ nomad_telemetry_circonus_force_metric_activation|ternary('true','false') }}
+{% endif %}
+{% if nomad_telemetry_circonus_check_instance_id is defined %}
+  circonus_check_instance_id = "{{ nomad_telemetry_circonus_check_instance_id }}"
+{% endif %}
+{% if nomad_telemetry_circonus_search_tag is defined %}
+  circonus_check_search_tag = "{{ nomad_telemetry_circonus_search_tag }}"
+{% endif %}
+{% if nomad_telemetry_circonus_check_display_name is defined %}
+  circonus_check_display_name = "{{ nomad_telemetry_circonus_check_display_name }}"
+{% endif %}
+{% if nomad_telemetry_circonus_check_tags is defined %}
+  circonus_check_tags = "{{ nomad_telemetry_circonus_check_tags }}"
+{% endif %}
+{% if nomad_telemetry_circonus_broker_id is defined %}
+  circonus_broker_id = "{{ nomad_telemetry_circonus_broker_id }}"
+{% endif %}
+{% if nomad_telemetry_circonus_broker_select_tag is defined %}
+  circonus_broker_select_tag = "{{ nomad_telemetry_circonus_broker_select_tag }}"
+{% endif %}
+}

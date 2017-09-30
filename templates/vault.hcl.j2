@@ -1,0 +1,35 @@
+vault {
+{% if nomad_vault_enabled is defined %}
+  enabled = {{ nomad_vault_enabled|ternary('true','false') }}
+{% endif %}
+{% if nomad_vault_address is defined %}
+  address = "{{ nomad_vault_address }}"
+{% endif %}
+{% if nomad_vault_allow_unauthenticated is defined %}
+  allow_unauthenticated = {{ nomad_vault_allow_unauthenticated|ternary('true','false') }}
+{% endif %}
+{% if nomad_vault_create_from_role is defined %}
+  create_from_role = "{{ nomad_vault_create_from_role }}"
+{% endif %}
+{% if nomad_vault_task_token_ttl is defined %}
+  task_token_ttl = "{{ nomad_vault_task_token_ttl }}"
+{% endif %}
+{% if nomad_vault_ca_path is defined %}
+  ca_path = "{{ nomad_vault_ca_path }}"
+{% endif %}
+{% if nomad_vault_cert_file is defined %}
+  cert_file = "{{ nomad_vault_cert_file }}"
+{% endif %}
+{% if nomad_vault_key_file is defined %}
+  key_file = "{{ nomad_vault_key_file }}"
+{% endif %}
+{% if nomad_vault_tls_server_name is defined %}
+  tls_server_name = "{{ nomad_vault_tls_server_name }}"
+{% endif %}
+{% if nomad_vault_tls_skip_verify is defined %}
+  tls_skip_verify = {{ nomad_vault_tls_skip_verify|ternary('true','false') }}
+{% endif %}
+{% if nomad_vault_token is defined %}
+  token = "{{ nomad_vault_token }}"
+{% endif %}
+}

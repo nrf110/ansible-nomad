@@ -1,0 +1,4 @@
+---
+- name: Start Nomad Agent
+  service: name=nomad state=started enabled=yes
+  register: nomad_started

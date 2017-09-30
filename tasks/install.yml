@@ -1,0 +1,47 @@
+---
+- name: Install Unzip
+  apt:
+    name: unzip
+    update_cache: yes
+
+- name: Create nomad group
+  group:
+    name: "{{ nomad_group }}"
+    state: present
+    system: yes
+
+- name: Create nomad user
+  user:
+    home: "{{ nomad_home }}"
+    name: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    system: yes
+
+- name: Create nomad directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0755
+    recurse: True
+  with_items:
+    - "{{ nomad_home }}"
+    - "{{ nomad_home }}/bin"
+    - "{{ nomad_home }}/cert"
+    - "{{ nomad_data_dir }}"
+    - "{{ nomad_config_dir }}"
+
+- name: Download and unpack
+  unarchive:
+    src: "{{ nomad_download_url }}"
+    dest: "{{ nomad_home }}/bin"
+    remote_src: yes
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0700
+
+- name: Add nomad to PATH
+  template:
+    src: nomad.sh.j2
+    dest: /etc/profile.d/nomad.sh

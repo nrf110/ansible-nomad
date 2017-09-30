@@ -1,0 +1,44 @@
+consul {
+{% if nomad_consul_address is defined %}
+  address = "{{ nomad_consul_address }}"
+{% endif %}
+{% if nomad_consul_auth is defined %}
+  auth = "{{ nomad_consul_auth }}"
+{% endif %}
+{% if nomad_consul_auto_advertise is defined %}
+  auto_advertise = {{ nomad_consul_auto_advertise }}
+{% endif %}
+{% if nomad_consul_ca_file is defined %}
+  ca_file = "{{ nomad_consul_ca_file }}"
+{% endif %}
+{% if nomad_consul_cert_file is defined %}
+  cert_file = "{{ nomad_consul_cert_file }}"
+{% endif %}
+{% if nomad_consul_key_file is defined %}
+  key_file = "{{ nomad_consul_key_file }}"
+{% endif %}
+{% if nomad_consul_check_use_advertise is defined %}
+  check_use_advertise = {{ nomad_consul_check_use_advertise }}
+{% endif %}
+{% if nomad_consul_client_auto_join is defined %}
+  client_auto_join = {{ nomad_consul_client_auto_join|ternary('true','false') }}
+{% endif %}
+{% if nomad_consul_client_service_name is defined %}
+  client_service_name = "{{ nomad_consul_client_service_name }}"
+{% endif %}
+{% if nomad_consul_server_service_name is defined %}
+  server_service_name = "{{ nomad_consul_server_service_name }}"
+{% endif %}
+{% if nomad_consul_server_auto_join is defined %}
+  server_auto_join = {{ nomad_consul_server_auto_join|ternary('true','false') }}
+{% endif %}
+{% if nomad_consul_ssl is defined %}
+  ssl = {{ nomad_consul_ssl|ternary('true','false') }}
+{% endif %}
+{% if nomad_consul_token is defined %}
+  token = "{{ nomad_consul_token }}"
+{% endif %}
+{% if nomad_consul_verify_ssl is defined %}
+  verify_ssl = {{ nomad_consul_verify_ssl|ternary('true','false') }}
+{% endif %}
+}

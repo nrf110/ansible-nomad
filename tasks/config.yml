@@ -1,0 +1,37 @@
+---
+- name: Create Nomad Config Directory
+  file:
+    path: "{{ nomad_config_dir }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0755
+    state: directory
+
+- name: Create Config Files
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ nomad_config_dir }}/{{ item }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0644
+  with_items:
+    - nomad.hcl
+    - client.hcl
+    - consul.hcl
+    - server.hcl
+    - telemetry.hcl
+    - tls.hcl
+    - vault.hcl
+  notify:
+    - reload systemd
+
+- name: Create Init Script
+  template:
+    src: nomad.service.j2
+    dest: /etc/systemd/system/nomad.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload systemd
+    - restart nomad
